@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的大学学习主页</title>
+    <style>
+        /* 基础样式 */
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: "微软雅黑", sans-serif; line-height: 1.6; padding: 20px;}
+        h1, h2 {margin: 15px 0; color: #2c3e50;}
+        .container {max-width: 1200px; margin: 0 auto;}
+        .nav-buttons {margin: 20px 0;}
+        button {padding: 8px 16px; margin-right: 10px; cursor: pointer; background: #3498db; color: white; border: none; border-radius: 4px;}
+        button:disabled {background: #bdc3c7; cursor: not-allowed;}
+        .section {display: none; padding: 20px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 20px;}
+        .section.active {display: block;}
+        .resource-link {color: #3498db; text-decoration: none;}
+        .resource-link:hover {text-decoration: underline;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>姚明栋的大学学习主页</h1>
+        
+        <!-- 前进/后退按钮 -->
+        <div class="nav-buttons">
+            <button id="prevBtn" disabled>上一页</button>
+            <button id="nextBtn">下一页</button>
+        </div>
+
+        <!-- 1. 个人简介 -->
+        <div class="section active" id="section1">
+            <h2>1. 个人简介</h2>
+            <p>姓名：姚明栋</p >
+            <p>性别：男</p >
+            <p>联系电话：15306377135</p >
+            <p>邮箱：2191880254@qq.com</p >
+            <p>兴趣爱好：爱旅游、爱打羽毛球</p >
+            <p>学习风格：注重框架梳理+案例结合</p >
+        </div>
+
+        <!-- 2. 大学四年学习计划（适配经济与金融大一） -->
+        <div class="section" id="section2">
+            <h2>2. 大学四年学习计划</h2>
+            <p><strong>大一（当前阶段）：</strong>吃透已学课程（微观经济学/高数/英语/专业导论/管理学），整理微观经济学的“供需模型”“边际分析”框架；高数重点练微积分计算；每周用英语总结1篇经济类短新闻。</p >
+            <p><strong>大一下：</strong>学习宏观经济学、线性代数；加入金融社团，尝试模拟炒股入门；读《牛奶可乐经济学》这类趣味经济读物。</p >
+            <p><strong>大二：</strong>主攻货币银行学、计量经济学；考英语四级/六级；参与“挑战杯”经济类竞赛，锻炼数据分析能力。</p >
+            <p><strong>大三：</strong>学习投资学、公司金融；找银行/券商实习；准备初级经济师证书；确定考研（金融专硕）或就业方向。</p >
+            <p><strong>大四：</strong>完成金融类毕业设计（如某行业的市场分析）；冲刺考研复试/求职面试；总结大学专业知识体系。</p >
+        </div>
+
+        <!-- 3. 开学至今学习体会与反思（精简版） -->
+        <div class="section" id="section3">
+            <h2>3. 开学学习体会与反思</h2>
+            <p><strong>体会：</strong>
+                - 微观经济学能用生活例子懂（比如食堂饭价对应供需），没想象中难；
+                - 管理学的“SWOT分析”能用来规划自己的学习；
+                - 专业导论让我知道金融要“理论+实操”。
+            </p >
+            <p><strong>反思：</strong>
+                - 微观的图表推导课上懂了，课后没复盘，做题卡壳；
+                - 高数计算老粗心，得整个错题本；
+                - 管理学讨论没敢发言，下次要主动说。
+            </p >
+        </div>
+
+        <!-- 4. 学习+生活展示（视频） -->
+        <div class="section" id="section4">
+            <h2>4. 学习+生活展示</h2>
+            <p>我的日常vlog：</p >
+            <video controls width="600">
+                <source src="1.mp4" type="video/mp4">
+                你的浏览器不支持视频播放，请更换浏览器。
+            </video>
+        </div>
+
+        <!-- 5. 学习资源（可跳转） -->
+        <div class="section" id="section5">
+            <h2>5. 学习资源汇总</h2>
+            <ul>
+                <li>微观经济学：<a href=" " target="_blank" class="resource-link">南京大学 微观经济学MOOC</a ></li>
+                <li>高数辅导：<a href="https://www.bilibili.com/video/BV1Eb411u7Fw" target="_blank" class="resource-link">B站 高数基础课</a ></li>
+                <li>经济新闻：<a href="https://wallstreetcn.com/" target="_blank" class="resource-link">华尔街见闻（入门级经济资讯）</a ></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 前进/后退逻辑
+        const sections = document.querySelectorAll('.section');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentSectionIndex = 0;
+
+        function updateSections() {
+            // 隐藏所有section，显示当前section
+            sections.forEach((sec, idx) => {
+                sec.classList.toggle('active', idx === currentSectionIndex);
+            });
+            // 控制按钮状态
+            prevBtn.disabled = currentSectionIndex === 0;
+            nextBtn.disabled = currentSectionIndex === sections.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                updateSections();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+                updateSections();
+            }
+        });
+    </script>
+</body>
+</html>
